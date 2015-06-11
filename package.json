@@ -1,7 +1,7 @@
 {
-  "name": "AbsoluteGrid",
+  "name": "react-absolute-grid",
   "version": "1.0.0",
-  "description": "An absolutely positioned fully configurable React grid with drag/drop sorting support",
+  "description": "An absolutely positioned fully configurable React grid with drag/drop, filtering, selection, and sorting",
   "main": "demos/index.html",
   "scripts": {
     "build-demo": "webpack",
