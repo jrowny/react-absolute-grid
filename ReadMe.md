@@ -1,6 +1,6 @@
 React Absolute Grid
 ===================
-An absolute layout grid with animations, filtering, and drag and drop support. Use your own component as the grid item.
+An absolute layout grid with animations, filtering, zooming, and drag and drop support. Use your own component as the grid item.
 
 Usage:
 ===
@@ -22,16 +22,37 @@ Usage:
 Options (Properties)
 =====
 
-  * items, default: [] | The array of items in the grid
-  * displayObject, default: <GridItem/> | The React compnent used to display items
-  * keyProp, default: 'key' | The property to be used as a key 
-  * filterProp, default: 'filtered' | The property to be used for filtering, true means it's filtered
-  * sortProp, default: 'sort' | The property to sort on
-  * itemWidth, default: 128 | The width of an item
-  * itemHeight, default: 128 | The height of an item
-  * verticalMargin, default: -1 | How much space between rows, -1 means the same as coumns spacing which is dynamically calculated
-  * responsive, default: false,
-  * zoom, default: 1
+  * **items** | default: [] | The array of items in the grid
+  * **displayObject** | default: <GridItem/> | The React compnent used to display items
+  * **keyProp** | default: 'key' | The property to be used as a key 
+  * **filterProp** | default: 'filtered' | The property to be used for filtering, true means it's filtered
+  * **sortProp** | default: 'sort' | The property to sort on
+  * **itemWidth** | default: 128 | The width of an item
+  * **itemHeight** | default: 128 | The height of an item
+  * **verticalMargin** | default: -1 | How much space between rows, -1 means the same as coumns spacing which is dynamically calculated
+  * **responsive** | default: false | If the container has a dynamic width, set this to true to update when the browser resizes
+  * **zoom** | default: 1 | Zooms the contents of the grid
+
+Creating a DisplayObject component
+===
+Display objects must accept an item, style, and index property and apply the style to the root element in your render. Here's the simplest possible example:
+
+    import React from 'react';
+
+    export default class SampleDisplay extends React.Component {
+
+      render() {
+        var itemStyle = this.props.style;
+
+        return <div style={itemStyle} >Sample Display Object: {this.props.item.name}</div>;
+      }
+    }
+
+    SampleDisplay.propTypes = {
+      item: React.PropTypes.object,
+      style: React.PropTypes.object,
+      index: React.PropTypes.number
+    };
 
 ToDo:
 ===
