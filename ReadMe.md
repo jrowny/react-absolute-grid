@@ -25,7 +25,7 @@ Options (Properties)
   * **items** | default: [] | The array of items in the grid
   * **displayObject** | default: <GridItem/> | The React compnent used to display items
   * **keyProp** | default: 'key' | The property to be used as a key 
-  * **filterProp** | default: 'filtered' | The property to be used for filtering, true means it's filtered
+  * **filterProp** | default: 'filtered' | The property to be used for filtering, if the filtered value is true, the item won't be displayed. It's important to not remove items from the array because that will cause React to remove the DOM, for performance we would rather hide it then remove it.
   * **sortProp** | default: 'sort' | The property to sort on
   * **itemWidth** | default: 128 | The width of an item
   * **itemHeight** | default: 128 | The height of an item
