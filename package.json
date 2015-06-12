@@ -1,6 +1,6 @@
 {
   "name": "react-absolute-grid",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An absolutely positioned fully configurable React grid with drag/drop, filtering, selection, and sorting",
   "main": "demos/index.html",
   "scripts": {
