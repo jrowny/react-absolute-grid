@@ -1,9 +1,9 @@
 var path = require('path');
 
 var config = {
-  entry: ['webpack/hot/dev-server', path.resolve(__dirname, 'demo.js')],
+  entry: ['webpack/hot/dev-server', path.resolve(__dirname, '../demo.js')],
   output: {
-    path: path.resolve(__dirname, 'demo'),
+    path: path.resolve(__dirname, '../demo'),
     filename: 'AbsoluteGrid.js'
   },
   module: {

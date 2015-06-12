@@ -4,8 +4,8 @@
   "description": "An absolutely positioned fully configurable React grid with drag/drop, filtering, selection, and sorting",
   "main": "demos/index.html",
   "scripts": {
-    "build-demo": "webpack",
-    "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base demo",
+    "build-demo": "webpack --config 'webpack/demo.config.js' --optimize-minimize --content-base demo",
+    "dev": "webpack-dev-server --config 'webpack/dev.config.js' --devtool eval --progress --colors --hot --content-base demo",
     "lint": "eslint src"
   },
   "author": "Jonathan Rowny",
