@@ -2,11 +2,6 @@ React Absolute Grid
 ===================
 An absolute layout grid with animations, filtering, zooming, and drag and drop support. Use your own component as the grid item. See the [Demo](http://jrowny.github.io/react-absolute-grid/demo/).
 
-What Makes AbsoluteGrid Unique?
-----
-The idea behing AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from DOM, instead they are simple hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item.
-
-
 Usage:
 ------
 
@@ -69,6 +64,11 @@ Once you've created a display object, use it like this:
      
      var dispalyObject = (<SampleDisplay />);
      var grid = (<AbsoluteGrid ... displayObject={displayObject}/>);
+
+What Makes AbsoluteGrid Unique?
+----
+The idea behing AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from DOM, instead they are hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item. Those properties are customizable using the `keyProp` and `filterProp` properties.
+
 
 ToDo:
 -----
