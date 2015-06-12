@@ -46,9 +46,7 @@ Display objects must accept an item, style, and index property and apply the sty
     export default class SampleDisplay extends React.Component {
 
       render() {
-        var itemStyle = this.props.style;
-
-        return <div style={itemStyle} >Sample Display Object: {this.props.item.name}</div>;
+        return <div style={this.props.style}>{this.props.item.name}</div>;
       }
     }
 
@@ -64,3 +62,7 @@ ToDo:
  * Drag and Drop
  * Zoom demo
  * Selection
+
+Browser Compatibility
+-----
+This component should work in all browsers that [support CSS3 3D Transforms](http://caniuse.com/#feat=transforms3d). If you need IE9 support you can modify it to use transform rather than transform3d. Pull requests welcome!
