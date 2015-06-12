@@ -2,39 +2,24 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    <style>
-       body{
-       	font-family: 'Open Sans', sans-serif;
-       } 
-       .demo{
-       	 width:700px;
-       	 background:#ccc;
-       	 padding:20px;
-       	 margin:10px 0;
-       }
-
-       .gridItem{
-       	border-radius:4px;
-       	background-color:#fff;
-       	padding:20px;
-        overflow:hidden;
-       }
-    </style>
+    <link rel="stylesheet" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,800" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="demo.css" type="text/css">
   </head>
   <body>
-  <h1>Basic Demo</h1>
-  	<div id="BasicDemo" class="demo"></div>
-    <h1>Using a Custom Renderer (DisplayObject)</h1>
-  	<div id="DisplayObjectDemo" class="demo"></div> 
-    <h1>Filtering with Animation</h1>
-    <div id="Filter"></div>
-    <div id="FilterDemo" class="demo"></div> 
-    <h1>Drag and Drop with Animation</h1>
-    <div>Coming soon...</div> 
-    <h1>Selection with Drag and Drop</h1>
-    <div>Coming soon...</div> 
-
+    <div class="wrap">
+      <h1>Absolute Grid</h1>
+     <p>Sortable, filterable, zoomable, ReactJS grid component using an absolute transform3d layout for React 0.13.x and ES6. <a href="https://github.com/jrowny/react-absolute-grid">Read more here</a>. </p><p>Sample display items courtesy of <a href="http://www.invisionapp.com/do">InVisionApp</a></p>
+        <form class="pure-form">
+              <span id="Filter"></span>
+              <div class="zoom">
+              <i class="fa fa-search-minus"></i><span id="Zoom"></span><i class="fa fa-search-plus"></i>
+              </div>
+        </form>
+      <div id="Demo" class="demo"></div> 
+      
+    </div>
  	  <script src="http://localhost:8080/webpack-dev-server.js"></script>
     <script src="AbsoluteGrid.js"></script>
   </body>

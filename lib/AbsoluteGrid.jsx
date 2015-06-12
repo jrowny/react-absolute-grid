@@ -3,6 +3,7 @@
 import React from 'react';
 import GridItem from './GridItem.jsx';
 import LayoutManager from './LayoutManager.js';
+import DragManager from './DragManager.js';
 import * as _ from 'lodash';
 
 export default class AbsoluteGrid extends React.Component {
@@ -14,7 +15,11 @@ export default class AbsoluteGrid extends React.Component {
     super(props);
     this.running = false;
     this.boundedResize = this.onResize.bind(this);
-    this.state = {layoutWidth: 0};
+    this.dragManager = new DragManager(this.props.onMove);
+    this.state = {
+      layoutWidth: 0,
+      dragItemId: 0
+    };
   }
 
   render() {
@@ -57,7 +62,8 @@ export default class AbsoluteGrid extends React.Component {
         style: style,
         item: item,
         index: index,
-        key: key
+        key: key,
+        dragManager: this.dragManager
       }));
 
       return gridItem;
@@ -121,7 +127,8 @@ AbsoluteGrid.propTypes = {
   keyProp: React.PropTypes.string,
   sortProp: React.PropTypes.string,
   filterProp: React.PropTypes.string,
-  animation: React.PropTypes.string
+  animation: React.PropTypes.string,
+  onMove: React.PropTypes.func
 };
 
 AbsoluteGrid.defaultProps = {
@@ -135,5 +142,6 @@ AbsoluteGrid.defaultProps = {
   verticalMargin: -1,
   responsive: false,
   animation: 'transform 300ms ease',
-  zoom: 1
+  zoom: 1,
+  onMove: function(){}
 };

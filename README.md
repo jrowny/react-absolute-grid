@@ -32,37 +32,46 @@ Options (Properties)
   * **sortProp** | default: 'sort' | The property to sort on
   * **itemWidth** | default: 128 | The width of an item
   * **itemHeight** | default: 128 | The height of an item
-  * **verticalMargin** | default: -1 | How much space between rows, -1 means the same as coumns spacing which is dynamically calculated
+  * **verticalMargin** | default: -1 | How much space between rows, -1 means the same as columns margin which is dynamically calculated based on width
   * **responsive** | default: false | If the container has a dynamic width, set this to true to update when the browser resizes
   * **animation** | default: 'transform 300ms ease' | The CSS animation to use on elements. Pass a blank string or `false` for no animation.
-  * **zoom** | default: 1 | Zooms the contents of the grid
+  * **zoom** | default: 1 | Zooms the contents of the grid, 1 = 100%
+  * **onMove** | default: fn(from, to) | This function is called when an item is dragged over another item. It is your responsibility to update the sort of all items.
 
 Creating a DisplayObject component
 ------
-Display objects must accept an item, style, and index property and apply the style to the root element in your render. Here's the simplest possible example:
+Display objects will receive item, style, and index property as properties. You must apply the style to the root element in your render. Here's the simplest possible example with drag and drop support:
+
+    'use strict';
 
     import React from 'react';
+    import BaseDisplayObject from '../lib/BaseDisplayObject.jsx';
 
-    export default class SampleDisplay extends React.Component {
+    export default class SampleDisplay extends BaseDisplayObject{
+
+      constructor() {
+        super();
+        //Only required if you want drag/drop support
+        this.onDrag = super.onDrag.bind(this);
+        this.onMouseOver = super.onMouseOver.bind(this);
+      }
 
       render() {
-        return <div style={this.props.style}>{this.props.item.name}</div>;
+        //IMPORTANT: Without the style, nothing happens :(
+        var itemStyle = super.getStyle.call(this);
+
+        return <div onMouseDown={this.onDrag} onMouseOver={this.onMouseOver} style={itemStyle}></div>;
       }
     }
 
-    SampleDisplay.propTypes = {
-      item: React.PropTypes.object,
-      style: React.PropTypes.object,
-      index: React.PropTypes.number
-    };
 
 ToDo:
 -----
 
- * Drag and Drop
- * Zoom demo
- * Selection
+ * Improve Drag & Drop browser support and reliability
 
 Browser Compatibility
 -----
 This component should work in all browsers that [support CSS3 3D Transforms](http://caniuse.com/#feat=transforms3d). If you need IE9 support you can modify it to use transform rather than transform3d. Pull requests welcome!
+
+Drag and Drop only works on IE11+ due to lack of pointer events, although there is a workaround coming soon.
