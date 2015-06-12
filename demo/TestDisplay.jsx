@@ -20,7 +20,7 @@ export default class TestDisplay extends React.Component {
     itemStyle.backgroundColor = this.getRandomColor();
     itemStyle.borderRadius = '10px';
 
-    return <div style={itemStyle} className="gridItem">Custom Display Object: {this.props.item.name}</div>;
+    return <div style={itemStyle} className="gridItem">{this.props.item.name}</div>;
   }
 }
 

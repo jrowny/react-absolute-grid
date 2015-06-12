@@ -15,7 +15,6 @@ export default class AbsoluteGrid extends React.Component {
     this.running = false;
     this.boundedResize = this.onResize.bind(this);
     this.state = {layoutWidth: 0};
-    console.log(props);
   }
 
   render() {
@@ -52,9 +51,10 @@ export default class AbsoluteGrid extends React.Component {
     var gridItems = this.props.items.map(function(item){
       var key = item[this.props.keyProp];
       var index = sortedIndex[key];
+      var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
       var gridItem = React.cloneElement(this.props.displayObject, _.assign(this.props.displayObject.props, {
-        style: layout.getStyle(index),
+        style: style,
         item: item,
         index: index,
         key: key
@@ -120,7 +120,8 @@ AbsoluteGrid.propTypes = {
   responsive: React.PropTypes.bool,
   keyProp: React.PropTypes.string,
   sortProp: React.PropTypes.string,
-  filterProp: React.PropTypes.string
+  filterProp: React.PropTypes.string,
+  animation: React.PropTypes.string
 };
 
 AbsoluteGrid.defaultProps = {
@@ -133,5 +134,6 @@ AbsoluteGrid.defaultProps = {
   itemHeight: 128,
   verticalMargin: -1,
   responsive: false,
+  animation: 'transform 300ms ease',
   zoom: 1
 };

@@ -4,13 +4,7 @@ import React from 'react';
 
 export default class GridItem extends React.Component {
   render() {
-    var animation = 'transform 300ms ease';
     var itemStyle = this.props.style;
-    itemStyle.WebkitTransition = '-webkit-' + animation;
-    itemStyle.MozTransition = '-moz-' + animation;
-    itemStyle.msTransition = 'ms-' + animation;
-    itemStyle.transition = animation;
-
     return <div style={itemStyle} className="gridItem">{this.props.item.name}</div>;
   }
 }

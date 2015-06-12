@@ -1,1 +1,1 @@
-module.exports = require('lib/AbsoluteGrid.jsx');
+module.exports = require('./lib/AbsoluteGrid.jsx');
