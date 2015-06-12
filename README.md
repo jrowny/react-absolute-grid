@@ -2,8 +2,11 @@ React Absolute Grid
 ===================
 An absolute layout grid with animations, filtering, zooming, and drag and drop support. Use your own component as the grid item.
 
+[Demo](http://jrowny.github.io/react-absolute-grid/demo/)
+------
+
 Usage:
-===
+------
 
     import React from 'react';
     import AbsoluteGrid from './lib/AbsoluteGrid.jsx';
@@ -20,7 +23,7 @@ Usage:
     
 
 Options (Properties)
-=====
+------
 
   * **items** | default: [] | The array of items in the grid
   * **displayObject** | default: &lt;GridItem/&gt; | The React compnent used to display items
@@ -35,7 +38,7 @@ Options (Properties)
   * **zoom** | default: 1 | Zooms the contents of the grid
 
 Creating a DisplayObject component
-===
+------
 Display objects must accept an item, style, and index property and apply the style to the root element in your render. Here's the simplest possible example:
 
     import React from 'react';
@@ -56,9 +59,8 @@ Display objects must accept an item, style, and index property and apply the sty
     };
 
 ToDo:
-===
+-----
 
  * Drag and Drop
+ * Zoom demo
  * Selection
- * Filter Demo
- * Docs
