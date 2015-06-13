@@ -4,6 +4,7 @@ import React from 'react';
 import AbsoluteGrid from './index.js';
 import SampleDisplay from './demo/SampleDisplay.jsx';
 import * as data from './demo/sampleData.js';
+import * as _ from 'lodash';
 
 demo();
 
@@ -52,12 +53,6 @@ function demo() {
     render();
   };
 
-  //Update the zoom value
-  var onZoom = function(event){
-    zoom = parseFloat(event.target.value);
-    render();
-  };
-
   var unMountTest = function(){
     if(React.unmountComponentAtNode(document.getElementById('Demo'))){
       React.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
@@ -75,6 +70,14 @@ function demo() {
                                verticalMargin={42}
                                itemWidth={230}
                                itemHeight={409}/>, document.getElementById('Demo'));
+  };
+
+  var renderDebounced = _.debounce(render, 150);
+
+  //Update the zoom value
+  var onZoom = function(event){
+    zoom = parseFloat(event.target.value);
+    renderDebounced();
   };
 
   React.render(<input onChange={onZoom} type='range' min='0.3' max='1.5' step='0.1' defaultValue={zoom}/>, document.getElementById('Zoom'));
