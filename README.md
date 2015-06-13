@@ -5,13 +5,12 @@ An absolute layout grid with animations, filtering, zooming, and drag and drop s
 Usage:
 ------
 
+Install with `npm install react-absolute-grid`
+
     import React from 'react';
     import AbsoluteGrid from './lib/AbsoluteGrid.jsx';
-    
-    /*
-       The data structure is pretty strict, we require a unique identifier (in this case key) and a sort
-    */
-    var sampleItems = [
+  
+     var sampleItems = [
       {key: 1, name: 'Test', sort: 0, filtered: 0},
       {key: 2, name: 'Test 1', sort: 1, filtered: 0},
     ];
