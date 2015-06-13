@@ -72,7 +72,7 @@ The idea behing AbsoluteGrid is high performance. This is achieved by using Tran
 
 ToDo:
 -----
-
+ * Full Mobile Supprt
  * Improve Drag & Drop browser support and reliability
 
 Browser Compatibility

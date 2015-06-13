@@ -58,6 +58,15 @@ function demo() {
     render();
   };
 
+  var unMountTest = function(){
+    if(React.unmountComponentAtNode(document.getElementById('Demo'))){
+      React.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
+    }else{
+      render();
+      React.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
+    }
+  };
+
   render = function(){
     React.render(<AbsoluteGrid items={sampleItems}
                                displayObject={displayObject}
@@ -70,5 +79,6 @@ function demo() {
 
   React.render(<input onChange={onZoom} type='range' min='0.3' max='1.5' step='0.1' defaultValue={zoom}/>, document.getElementById('Zoom'));
   React.render(<input placeholder='Filter eg: calendar' onChange={onFilter} type='text'/>, document.getElementById('Filter'));
+  React.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
   render();
 }

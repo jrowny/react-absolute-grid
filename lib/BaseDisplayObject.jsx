@@ -54,7 +54,7 @@ export default class BaseDisplayObject extends React.Component {
 
 
   componentWillUnmount(){
-    this.props.dragmanager.endDrag();
+    this.props.dragManager.endDrag();
   }
 }
 
