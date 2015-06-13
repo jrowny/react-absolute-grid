@@ -9,12 +9,11 @@ import * as _ from 'lodash';
 export default class AbsoluteGrid extends React.Component {
 
   running;
-  boundedResize;
 
   constructor(props){
     super(props);
     this.running = false;
-    this.boundedResize = this.onResize.bind(this);
+    this.onResize = _.debounce(this.onResize.bind(this), 150);
     this.dragManager = new DragManager(this.props.onMove);
     this.state = {
       layoutWidth: 0,
@@ -81,13 +80,13 @@ export default class AbsoluteGrid extends React.Component {
   componentDidMount() {
     //If responsive, listen for resize
     if(this.props.responsive){
-      window.addEventListener('resize', this.boundedResize);
+      window.addEventListener('resize', this.onResize);
     }
-    this.boundedResize();
+    this.onResize();
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.boundedResize);
+    window.removeEventListener('resize', this.onResize);
   }
 
   onResize() {

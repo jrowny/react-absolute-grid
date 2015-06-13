@@ -67,6 +67,7 @@ function demo() {
                                displayObject={displayObject}
                                onMove={onMove}
                                zoom={zoom}
+                               responsive={true}
                                verticalMargin={42}
                                itemWidth={230}
                                itemHeight={409}/>, document.getElementById('Demo'));
