@@ -35,9 +35,9 @@ function demo() {
 
   //Change the item's sort order
   var onMove = function(source, target){
-      //If we're in the same group, we can just swap orders
     source = _.find(sampleItems, {key: parseInt(source, 10)});
     target = _.find(sampleItems, {key: parseInt(target, 10)});
+
     var targetSort = target.sort;
 
     //CAREFUL, For maximum performance we must maintain the array's order, but change sort
