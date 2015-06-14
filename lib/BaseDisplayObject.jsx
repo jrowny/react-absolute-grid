@@ -5,6 +5,11 @@ import * as _ from 'lodash';
 
 export default class BaseDisplayObject extends React.Component {
 
+  constructor(){
+    super();
+    this.onDrag = this.onDrag.bind(this);
+  }
+
   updateDrag(x, y){
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
@@ -21,16 +26,10 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag(event){
+  onDrag(e){
     if(this.props.dragManager){
       var domNode = React.findDOMNode(this);
-      this.props.dragManager.startDrag(event, domNode, this.props.item, this.updateDrag.bind(this));
-    }
-  }
-
-  onMouseOver(){
-    if(this.props.dragManager.dragItem && this.props.dragManager.dragItem !== this.props.item){
-      this.props.dragManager.hoverItem = this.props.item;
+      this.props.dragManager.startDrag(e, domNode, this.props.item, this.updateDrag.bind(this));
     }
   }
 
@@ -52,6 +51,13 @@ export default class BaseDisplayObject extends React.Component {
     return this.props.style;
   }
 
+  componentDidMount(){
+    if(this.props.dragEnabled){
+      React.findDOMNode(this).addEventListener('mousedown', this.onDrag);
+      React.findDOMNode(this).addEventListener('touchstart', this.onDrag);
+      React.findDOMNode(this).setAttribute('data-key', this.props.key);
+    }
+  }
 
   componentWillUnmount(){
     this.props.dragManager.endDrag();
@@ -62,5 +68,6 @@ BaseDisplayObject.propTypes = {
   item: React.PropTypes.object,
   style: React.PropTypes.object,
   index: React.PropTypes.number,
+  dragEnabled: React.PropTypes.bool,
   dragManager: React.PropTypes.object
 };

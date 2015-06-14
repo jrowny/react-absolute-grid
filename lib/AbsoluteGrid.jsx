@@ -14,7 +14,7 @@ export default class AbsoluteGrid extends React.Component {
     super(props);
     this.running = false;
     this.onResize = _.debounce(this.onResize.bind(this), 150);
-    this.dragManager = new DragManager(this.props.onMove);
+    this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
       layoutWidth: 0,
       dragItemId: 0
@@ -62,6 +62,7 @@ export default class AbsoluteGrid extends React.Component {
         item: item,
         index: index,
         key: key,
+        dragEnabled: this.props.dragEnabled,
         dragManager: this.dragManager
       }));
 
@@ -123,6 +124,7 @@ AbsoluteGrid.propTypes = {
   verticalMargin: React.PropTypes.number,
   zoom: React.PropTypes.number,
   responsive: React.PropTypes.bool,
+  dragEnabled: React.PropTypes.bool,
   keyProp: React.PropTypes.string,
   sortProp: React.PropTypes.string,
   filterProp: React.PropTypes.string,
@@ -140,6 +142,7 @@ AbsoluteGrid.defaultProps = {
   itemHeight: 128,
   verticalMargin: -1,
   responsive: false,
+  dragEnabled: false,
   animation: 'transform 300ms ease',
   zoom: 1,
   onMove: function(){}

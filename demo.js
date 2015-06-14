@@ -36,6 +36,8 @@ function demo() {
   //Change the item's sort order
   var onMove = function(source, target){
       //If we're in the same group, we can just swap orders
+    source = _.find(sampleItems, {key: parseInt(source, 10)});
+    target = _.find(sampleItems, {key: parseInt(target, 10)});
     var targetSort = target.sort;
 
     //CAREFUL, For maximum performance we must maintain the array's order, but change sort
@@ -53,6 +55,8 @@ function demo() {
     render();
   };
 
+  var onMoveDebounced = _.debounce(onMove, 80);
+
   var unMountTest = function(){
     if(React.unmountComponentAtNode(document.getElementById('Demo'))){
       React.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
@@ -65,7 +69,8 @@ function demo() {
   render = function(){
     React.render(<AbsoluteGrid items={sampleItems}
                                displayObject={displayObject}
-                               onMove={onMove}
+                               onMove={onMoveDebounced}
+                               dragEnabled={true}
                                zoom={zoom}
                                responsive={true}
                                verticalMargin={42}
