@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import * as _ from 'lodash';
+import assign from 'lodash.assign';
 
 export default class BaseDisplayObject extends React.Component {
 
@@ -15,9 +15,9 @@ export default class BaseDisplayObject extends React.Component {
     var pauseAnimation = false;
     if(!this.props.dragManager.dragItem){
       pauseAnimation = true;
-      setTimeout(function(){
+      setTimeout(() => {
         this.setState({pauseAnimation: false});
-      }.bind(this));
+      });
     }
     this.setState({
       dragX: x,
@@ -38,9 +38,9 @@ export default class BaseDisplayObject extends React.Component {
     //If this is the object being dragged, return a different style
     if(this.props.dragManager.dragItem === this.props.item){
       var dragStyle = this.props.dragManager.getStyle(this.state.dragX, this.state.dragY);
-      return _.assign({}, this.props.style, dragStyle);
+      return assign({}, this.props.style, dragStyle);
     }else if(this.state && this.state.pauseAnimation){
-      var pauseAnimationStyle = _.assign({}, this.props.style);
+      var pauseAnimationStyle = assign({}, this.props.style);
       pauseAnimationStyle.WebkitTransition = 'none';
       pauseAnimationStyle.MozTransition = 'none';
       pauseAnimationStyle.msTransition = 'none';

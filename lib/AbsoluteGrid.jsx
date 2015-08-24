@@ -4,7 +4,9 @@ import React from 'react';
 import GridItem from './GridItem.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
-import * as _ from 'lodash';
+import debounce from 'lodash.debounce';
+import sortBy from 'lodash.sortby';
+import assign from 'lodash.assign';
 
 export default class AbsoluteGrid extends React.Component {
 
@@ -13,7 +15,7 @@ export default class AbsoluteGrid extends React.Component {
   constructor(props){
     super(props);
     this.running = false;
-    this.onResize = _.debounce(this.onResize.bind(this), 150);
+    this.onResize = debounce(this.onResize.bind(this), 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
       layoutWidth: 0,
@@ -44,7 +46,7 @@ export default class AbsoluteGrid extends React.Component {
       This also clears out filtered items from the sort order and
       eliminates gaps and duplicate sorts
     */
-    _.sortBy(this.props.items, this.props.sortProp).forEach((item) => {
+    sortBy(this.props.items, this.props.sortProp).forEach((item) => {
       if(!item[this.props.filterProp]){
         var key = item[this.props.keyProp];
         sortedIndex[key] = filteredIndex;
@@ -57,7 +59,7 @@ export default class AbsoluteGrid extends React.Component {
       var index = sortedIndex[key];
       var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      var gridItem = React.cloneElement(this.props.displayObject, _.assign(this.props.displayObject.props, {
+      var gridItem = React.cloneElement(this.props.displayObject, assign(this.props.displayObject.props, {
         style: style,
         item: item,
         index: index,
