@@ -44,15 +44,15 @@ export default class AbsoluteGrid extends React.Component {
       This also clears out filtered items from the sort order and
       eliminates gaps and duplicate sorts
     */
-    _.sortBy(this.props.items, this.props.sortProp).forEach(function(item){
+    _.sortBy(this.props.items, this.props.sortProp).forEach((item) => {
       if(!item[this.props.filterProp]){
         var key = item[this.props.keyProp];
         sortedIndex[key] = filteredIndex;
         filteredIndex++;
       }
-    }.bind(this));
+    });
 
-    var gridItems = this.props.items.map(function(item){
+    var gridItems = this.props.items.map((item) => {
       var key = item[this.props.keyProp];
       var index = sortedIndex[key];
       var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
@@ -67,7 +67,7 @@ export default class AbsoluteGrid extends React.Component {
       }));
 
       return gridItem;
-    }.bind(this));
+    });
 
     var gridStyle = {
       position: 'relative',
