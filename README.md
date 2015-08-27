@@ -9,14 +9,14 @@ Install with `npm install react-absolute-grid`
 
     import React from 'react';
     import AbsoluteGrid from './lib/AbsoluteGrid.jsx';
-  
+
      var sampleItems = [
       {key: 1, name: 'Test', sort: 0, filtered: 0},
       {key: 2, name: 'Test 1', sort: 1, filtered: 0},
     ];
-     
+
     React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
-    
+
 
 Options (Properties)
 ------
@@ -55,14 +55,25 @@ Display objects will receive item, style, and index as properties. You must appl
       }
     }
 
-Once you've created a display object, use it like this: 
-     
+Once you've created a display object, use it like this:
+
      var dispalyObject = (<SampleDisplay />);
      var grid = (<AbsoluteGrid ... displayObject={displayObject}/>);
 
 What Makes AbsoluteGrid Unique?
 ----
 The idea behind AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from the DOM, instead they are hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item. Those properties are customizable using the `keyProp` and `filterProp` properties.
+
+GridItem props
+----
+Each GridItem component is passed the following props.
+
+| Property | Description |
+|---|:---|
+| **style** | The inline styles that ReactAbsoluteGrid generates for the grid item. **NOTE**: Remember to apply to your GridItem element |
+| **item** | The data associated with the GridItem |
+| **index** | The index of the item data in the `items` array |
+| **itemsLength** | The total length of the `items` array |
 
 
 ToDo:
