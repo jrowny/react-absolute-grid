@@ -62,6 +62,7 @@ export default class AbsoluteGrid extends React.Component {
       var gridItem = React.cloneElement(this.props.displayObject, assign(this.props.displayObject.props, {
         style: style,
         item: item,
+        itemsLength: this.props.items.length,
         index: index,
         key: key,
         dragEnabled: this.props.dragEnabled,
