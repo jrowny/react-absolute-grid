@@ -11,7 +11,9 @@
   "author": "Jonathan Rowny",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^3.9.3",
+    "lodash.assign": "^3.2.0",
+    "lodash.debounce": "^3.1.1",
+    "lodash.sortby": "^3.1.5",
     "react": "^0.13.3"
   },
   "devDependencies": {
