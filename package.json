@@ -1,6 +1,6 @@
 {
   "name": "react-absolute-grid",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An absolutely positioned responsive touch-enabled fully configurable React grid with drag/drop, filtering, and sorting",
   "main": "demos/index.html",
   "scripts": {
