@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export default class BaseDisplayObject extends React.Component {
 
@@ -27,7 +28,7 @@ export default class BaseDisplayObject extends React.Component {
 
   onDrag(e){
     if(this.props.dragManager){
-      var domNode = React.findDOMNode(this);
+      var domNode = ReactDOM.findDOMNode(this);
       this.props.dragManager.startDrag(e, domNode, this.props.item, this.updateDrag.bind(this));
     }
   }
@@ -52,9 +53,9 @@ export default class BaseDisplayObject extends React.Component {
 
   componentDidMount(){
     if(this.props.dragEnabled){
-      React.findDOMNode(this).addEventListener('mousedown', this.onDrag);
-      React.findDOMNode(this).addEventListener('touchstart', this.onDrag);
-      React.findDOMNode(this).setAttribute('data-key', this.props.key);
+      ReactDOM.findDOMNode(this).addEventListener('mousedown', this.onDrag);
+      ReactDOM.findDOMNode(this).addEventListener('touchstart', this.onDrag);
+      ReactDOM.findDOMNode(this).setAttribute('data-key', this.props.key);
     }
   }
 

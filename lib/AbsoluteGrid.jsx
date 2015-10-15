@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import GridItem from './GridItem.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
@@ -103,7 +104,7 @@ export default class AbsoluteGrid extends React.Component {
   }
 
   getDOMWidth = () => {
-    var width = React.findDOMNode(this).clientWidth;
+    var width = ReactDOM.findDOMNode(this).clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
