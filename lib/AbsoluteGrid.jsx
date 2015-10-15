@@ -14,7 +14,7 @@ export default class AbsoluteGrid extends React.Component {
   constructor(props){
     super(props);
     this.running = false;
-    this.onResize = debounce(this.onResize.bind(this), 150);
+    this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
       layoutWidth: 0,
@@ -40,11 +40,11 @@ export default class AbsoluteGrid extends React.Component {
     var sortedIndex = {};
 
     /*
-      If we actually sorted the array, React would re-render the DOM nodes
-      Creating a sort index just tells us where each item should be
-      This also clears out filtered items from the sort order and
-      eliminates gaps and duplicate sorts
-    */
+     If we actually sorted the array, React would re-render the DOM nodes
+     Creating a sort index just tells us where each item should be
+     This also clears out filtered items from the sort order and
+     eliminates gaps and duplicate sorts
+     */
     sortBy(this.props.items, this.props.sortProp).forEach((item) => {
       if(!item[this.props.filterProp]){
         var key = item[this.props.keyProp];
@@ -89,27 +89,26 @@ export default class AbsoluteGrid extends React.Component {
     window.removeEventListener('resize', this.onResize);
   }
 
-  onResize() {
+  onResize = () => {
     if (!this.running) {
       this.running = true;
 
       if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(this.getDOMWidth.bind(this));
+        window.requestAnimationFrame(this.getDOMWidth);
       } else {
-          setTimeout(this.getDOMWidth.bind(this), 66);
+        setTimeout(this.getDOMWidth, 66);
       }
 
     }
   }
 
-  getDOMWidth() {
+  getDOMWidth = () => {
     var width = React.findDOMNode(this).clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
     }
 
-    this.running = false;
   }
 
 
