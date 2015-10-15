@@ -6,7 +6,6 @@ import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
 import debounce from 'lodash.debounce';
 import sortBy from 'lodash.sortby';
-import assign from 'lodash.assign';
 
 export default class AbsoluteGrid extends React.Component {
 
@@ -59,15 +58,12 @@ export default class AbsoluteGrid extends React.Component {
       var index = sortedIndex[key];
       var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      var gridItem = React.cloneElement(this.props.displayObject, assign(this.props.displayObject.props, {
-        style: style,
-        item: item,
+      var gridItem = React.cloneElement(this.props.displayObject, {
+        ...this.props.displayObject.props, style, item, index, key,
         itemsLength: this.props.items.length,
-        index: index,
-        key: key,
         dragEnabled: this.props.dragEnabled,
         dragManager: this.dragManager
-      }));
+      });
 
       return gridItem;
     });
