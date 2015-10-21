@@ -1,12 +1,12 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import GridItem from './GridItem.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
 import debounce from 'lodash.debounce';
 import sortBy from 'lodash.sortby';
-import assign from 'lodash.assign';
 
 export default class AbsoluteGrid extends React.Component {
 
@@ -15,7 +15,7 @@ export default class AbsoluteGrid extends React.Component {
   constructor(props){
     super(props);
     this.running = false;
-    this.onResize = debounce(this.onResize.bind(this), 150);
+    this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
       layoutWidth: 0,
@@ -41,11 +41,11 @@ export default class AbsoluteGrid extends React.Component {
     var sortedIndex = {};
 
     /*
-      If we actually sorted the array, React would re-render the DOM nodes
-      Creating a sort index just tells us where each item should be
-      This also clears out filtered items from the sort order and
-      eliminates gaps and duplicate sorts
-    */
+     If we actually sorted the array, React would re-render the DOM nodes
+     Creating a sort index just tells us where each item should be
+     This also clears out filtered items from the sort order and
+     eliminates gaps and duplicate sorts
+     */
     sortBy(this.props.items, this.props.sortProp).forEach((item) => {
       if(!item[this.props.filterProp]){
         var key = item[this.props.keyProp];
@@ -59,15 +59,12 @@ export default class AbsoluteGrid extends React.Component {
       var index = sortedIndex[key];
       var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      var gridItem = React.cloneElement(this.props.displayObject, assign(this.props.displayObject.props, {
-        style: style,
-        item: item,
+      var gridItem = React.cloneElement(this.props.displayObject, {
+        ...this.props.displayObject.props, style, item, index, key,
         itemsLength: this.props.items.length,
-        index: index,
-        key: key,
         dragEnabled: this.props.dragEnabled,
         dragManager: this.dragManager
-      }));
+      });
 
       return gridItem;
     });
@@ -93,27 +90,26 @@ export default class AbsoluteGrid extends React.Component {
     window.removeEventListener('resize', this.onResize);
   }
 
-  onResize() {
+  onResize = () => {
     if (!this.running) {
       this.running = true;
 
       if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(this.getDOMWidth.bind(this));
+        window.requestAnimationFrame(this.getDOMWidth);
       } else {
-          setTimeout(this.getDOMWidth.bind(this), 66);
+        setTimeout(this.getDOMWidth, 66);
       }
 
     }
   }
 
-  getDOMWidth() {
-    var width = React.findDOMNode(this).clientWidth;
+  getDOMWidth = () => {
+    var width = ReactDOM.findDOMNode(this).clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
     }
 
-    this.running = false;
   }
 
 
