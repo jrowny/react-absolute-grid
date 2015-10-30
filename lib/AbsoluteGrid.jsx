@@ -109,7 +109,7 @@ export default class AbsoluteGrid extends React.Component {
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
     }
-
+    this.running = false;
   }
 
 
