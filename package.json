@@ -12,9 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "lodash.debounce": "^3.1.1",
-    "lodash.sortby": "^3.1.5",
-    "react": "0.14.0",
-    "react-dom": "0.14.0"
+    "lodash.sortby": "^3.1.5"
   },
   "peerDependencies": {
     "react": "^0.14.0"
@@ -27,6 +25,8 @@
     "eslint-plugin-react": "^2.4.0",
     "lodash": "^3.10.1",
     "node-libs-browser": "^0.5.2",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
   },
