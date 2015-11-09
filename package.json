@@ -15,7 +15,8 @@
     "lodash.sortby": "^3.1.5"
   },
   "peerDependencies": {
-    "react": "^0.14.0"
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "babel-core": "^5.4.7",
