@@ -49,7 +49,7 @@ export default class BaseDisplayObject extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.dragEnabled){
+    if (this.props.dragEnabled) {
       this.domNode.addEventListener('mousedown', this.onDrag);
       this.domNode.addEventListener('touchstart', this.onDrag);
       this.domNode.setAttribute('data-key', this.props.key);
@@ -57,7 +57,11 @@ export default class BaseDisplayObject extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.dragManager.endDrag();
+    if (this.props.dragEnabled) {
+      this.props.dragManager.endDrag();
+      this.domNode.removeEventListener('mousedown', this.onDrag);
+      this.domNode.removeEventListener('touchstart', this.onDrag);
+    }
   }
 
   render() {
