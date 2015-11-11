@@ -5,12 +5,12 @@ import ReactDOM from 'react-dom';
 
 export default class BaseDisplayObject extends React.Component {
 
-  constructor(){
+  constructor() {
     super();
     this.onDrag = this.onDrag.bind(this);
   }
 
-  updateDrag(x, y){
+  updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
     if(!this.props.dragManager.dragItem){
@@ -26,20 +26,19 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag(e){
+  onDrag(e) {
     if(this.props.dragManager){
       var domNode = ReactDOM.findDOMNode(this);
       this.props.dragManager.startDrag(e, domNode, this.props.item, this.updateDrag.bind(this));
     }
   }
 
-  getStyle(){
-
+  getStyle() {
     //If this is the object being dragged, return a different style
-    if(this.props.dragManager.dragItem === this.props.item){
+    if (this.props.dragManager.dragItem === this.props.item) {
       var dragStyle = this.props.dragManager.getStyle(this.state.dragX, this.state.dragY);
       return {...this.props.style, ...dragStyle};
-    }else if(this.state && this.state.pauseAnimation){
+    } else if (this.state && this.state.pauseAnimation) {
       var pauseAnimationStyle = {...this.props.style};
       pauseAnimationStyle.WebkitTransition = 'none';
       pauseAnimationStyle.MozTransition = 'none';
@@ -51,7 +50,7 @@ export default class BaseDisplayObject extends React.Component {
     return this.props.style;
   }
 
-  componentDidMount(){
+  componentDidMount() {
     if(this.props.dragEnabled){
       ReactDOM.findDOMNode(this).addEventListener('mousedown', this.onDrag);
       ReactDOM.findDOMNode(this).addEventListener('touchstart', this.onDrag);
@@ -59,8 +58,14 @@ export default class BaseDisplayObject extends React.Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.dragManager.endDrag();
+  }
+
+  render() {
+    return (
+      <div style={this.getStyle()}>{ this.props.children }</div>
+    );
   }
 }
 

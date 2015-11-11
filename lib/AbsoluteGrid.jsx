@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import GridItem from './GridItem.jsx';
+import BaseStyleObject from './BaseDisplayObject.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
 import debounce from 'lodash.debounce';
@@ -55,16 +55,19 @@ export default class AbsoluteGrid extends React.Component {
       const index = sortedIndex[key];
       const style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      return React.cloneElement(this.props.displayObject, {
-        ...this.props.displayObject.props,
-        style,
-        item,
-        index,
-        key,
-        itemsLength: this.props.items.length,
-        dragEnabled: this.props.dragEnabled,
-        dragManager: this.dragManager
-      });
+      return (
+        <BaseStyleObject
+          style={style}
+          item={item}
+          index={index}
+          key={key}
+          itemsLength={this.props.items.length}
+          dragEnabled={this.props.dragEnabled}
+          dragManager={this.dragManager}
+        >
+          { React.cloneElement(this.props.displayObject, { ...this.props.displayObject.props, item }) }
+        </BaseStyleObject>
+      );
     });
 
     const gridStyle = {
@@ -118,7 +121,7 @@ export default class AbsoluteGrid extends React.Component {
 
 AbsoluteGrid.propTypes = {
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  displayObject: React.PropTypes.object,
+  displayObject: React.PropTypes.element.isRequired,
   itemWidth: React.PropTypes.number,
   itemHeight: React.PropTypes.number,
   verticalMargin: React.PropTypes.number,
@@ -134,7 +137,6 @@ AbsoluteGrid.propTypes = {
 
 AbsoluteGrid.defaultProps = {
   items: [],
-  displayObject: <GridItem/>,
   keyProp: 'key',
   filterProp: 'filtered',
   sortProp: 'sort',
