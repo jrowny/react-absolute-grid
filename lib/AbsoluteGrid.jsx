@@ -60,6 +60,7 @@ export default class AbsoluteGrid extends React.Component {
           style={style}
           item={item}
           index={index}
+          id={key}
           key={key}
           itemsLength={this.props.items.length}
           dragEnabled={this.props.dragEnabled}

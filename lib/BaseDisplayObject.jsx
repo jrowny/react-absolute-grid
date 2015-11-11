@@ -52,7 +52,7 @@ export default class BaseDisplayObject extends React.Component {
     if (this.props.dragEnabled) {
       this.domNode.addEventListener('mousedown', this.onDrag);
       this.domNode.addEventListener('touchstart', this.onDrag);
-      this.domNode.setAttribute('data-key', this.props.key);
+      this.domNode.setAttribute('data-key', this.props.id);
     }
   }
 
