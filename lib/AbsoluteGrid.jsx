@@ -28,17 +28,17 @@ export default class AbsoluteGrid extends React.Component {
       return <div></div>;
     }
 
-    var options = {
+    const options = {
       itemWidth: this.props.itemWidth,
       itemHeight: this.props.itemHeight,
       verticalMargin: this.props.verticalMargin,
       zoom: this.props.zoom
     };
 
-    var layout = new LayoutManager(options, this.state.layoutWidth);
+    const layout = new LayoutManager(options, this.state.layoutWidth);
 
-    var filteredIndex = 0;
-    var sortedIndex = {};
+    let filteredIndex = 0;
+    let sortedIndex = {};
 
     /*
      If we actually sorted the array, React would re-render the DOM nodes
@@ -46,18 +46,18 @@ export default class AbsoluteGrid extends React.Component {
      This also clears out filtered items from the sort order and
      eliminates gaps and duplicate sorts
      */
-    sortBy(this.props.items, this.props.sortProp).forEach((item) => {
+    sortBy(this.props.items, this.props.sortProp).forEach(item => {
       if(!item[this.props.filterProp]){
-        var key = item[this.props.keyProp];
+        const key = item[this.props.keyProp];
         sortedIndex[key] = filteredIndex;
         filteredIndex++;
       }
     });
 
-    var gridItems = this.props.items.map(item => {
-      var key = item[this.props.keyProp];
-      var index = sortedIndex[key];
-      var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
+    const gridItems = this.props.items.map(item => {
+      const key = item[this.props.keyProp];
+      const index = sortedIndex[key];
+      const style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
       return React.cloneElement(this.props.displayObject, {
         ...this.props.displayObject.props,
@@ -71,7 +71,7 @@ export default class AbsoluteGrid extends React.Component {
       });
     });
 
-    var gridStyle = {
+    const gridStyle = {
       position: 'relative',
       display: 'block',
       height: layout.getTotalHeight(filteredIndex)
@@ -106,7 +106,7 @@ export default class AbsoluteGrid extends React.Component {
   }
 
   getDOMWidth = () => {
-    var width = ReactDOM.findDOMNode(this).clientWidth;
+    const width = ReactDOM.findDOMNode(this).clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
