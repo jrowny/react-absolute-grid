@@ -59,14 +59,12 @@ export default class AbsoluteGrid extends React.Component {
       var index = sortedIndex[key];
       var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      var gridItem = React.cloneElement(this.props.displayObject, {
+      return React.cloneElement(this.props.displayObject, {
         ...this.props.displayObject.props, style, item, index, key,
         itemsLength: this.props.items.length,
         dragEnabled: this.props.dragEnabled,
         dragManager: this.dragManager
       });
-
-      return gridItem;
     });
 
     var gridStyle = {
