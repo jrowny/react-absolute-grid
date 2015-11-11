@@ -10,11 +10,8 @@ import sortBy from 'lodash.sortby';
 
 export default class AbsoluteGrid extends React.Component {
 
-  running;
-
   constructor(props){
     super(props);
-    this.running = false;
     this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
@@ -93,15 +90,10 @@ export default class AbsoluteGrid extends React.Component {
   }
 
   onResize = () => {
-    if (!this.running) {
-      this.running = true;
-
-      if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(this.getDOMWidth);
-      } else {
-        setTimeout(this.getDOMWidth, 66);
-      }
-
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(this.getDOMWidth);
+    } else {
+      setTimeout(this.getDOMWidth, 66);
     }
   }
 
