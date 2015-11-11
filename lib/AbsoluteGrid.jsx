@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 import GridItem from './GridItem.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
@@ -22,7 +21,7 @@ export default class AbsoluteGrid extends React.Component {
 
   render() {
     if(!this.state.layoutWidth || !this.props.items.length){
-      return <div></div>;
+      return <div ref={node => this.container = node}></div>;
     }
 
     const options = {
@@ -74,7 +73,15 @@ export default class AbsoluteGrid extends React.Component {
       height: layout.getTotalHeight(filteredIndex)
     };
 
-    return <div style={gridStyle} className="absoluteGrid">{gridItems}</div>;
+    return (
+      <div
+        style={gridStyle}
+        className="absoluteGrid"
+        ref={node => this.container = node}
+      >
+        {gridItems}
+      </div>
+    );
   }
 
   componentDidMount() {
@@ -98,7 +105,7 @@ export default class AbsoluteGrid extends React.Component {
   }
 
   getDOMWidth = () => {
-    const width = ReactDOM.findDOMNode(this).clientWidth;
+    const width = this.container && this.container.clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
