@@ -16,7 +16,7 @@ export default class BaseDisplayObject extends React.Component {
       pauseAnimation = true;
       setTimeout(() => {
         this.setState({pauseAnimation: false});
-      });
+      }, 0);
     }
     this.setState({
       dragX: x,
