@@ -2,18 +2,17 @@
   "name": "react-absolute-grid",
   "version": "1.0.4",
   "description": "An absolutely positioned responsive touch-enabled fully configurable React grid with drag/drop, filtering, and sorting",
-  "main": "demos/index.html",
+  "main": "dist/index.js",
   "scripts": {
+    "build": "webpack --config webpack/build.config.js --optimize-minimize",
     "build-demo": "webpack --config 'webpack/demo.config.js' --optimize-minimize --content-base demo",
     "dev": "webpack-dev-server --config 'webpack/dev.config.js' --devtool eval --progress --colors --hot --content-base demo",
-    "lint": "eslint src"
+    "lint": "eslint lib",
+    "pre-publish": "npm run lint && npm run build"
   },
   "author": "Jonathan Rowny",
   "license": "MIT",
-  "dependencies": {
-    "lodash.debounce": "^3.1.1",
-    "lodash.sortby": "^3.1.5"
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "^0.14.0"
   },
@@ -24,6 +23,8 @@
     "eslint": "^0.21.2",
     "eslint-plugin-react": "^2.4.0",
     "lodash": "^3.10.1",
+    "lodash.debounce": "^3.1.1",
+    "lodash.sortby": "^3.1.5",
     "node-libs-browser": "^0.5.2",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
