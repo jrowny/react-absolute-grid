@@ -4,11 +4,6 @@ import React from 'react';
 
 export default class BaseDisplayObject extends React.Component {
 
-  constructor() {
-    super();
-    this.onDrag = this.onDrag.bind(this);
-  }
-
   updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
@@ -25,7 +20,7 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag(e) {
+  onDrag = (e) => {
     if(this.props.dragManager){
       this.props.dragManager.startDrag(e, this.domNode, this.props.item, this.updateDrag.bind(this));
     }

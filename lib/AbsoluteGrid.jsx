@@ -9,8 +9,8 @@ import sortBy from 'lodash.sortby';
 
 export default class AbsoluteGrid extends React.Component {
 
-  constructor(props){
-    super(props);
+  constructor(props, context){
+    super(props, context);
     this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
