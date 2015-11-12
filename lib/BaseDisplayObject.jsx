@@ -67,6 +67,7 @@ export default class BaseDisplayObject extends React.Component {
 }
 
 BaseDisplayObject.propTypes = {
+  id: React.PropTypes.any,
   item: React.PropTypes.object,
   style: React.PropTypes.object,
   index: React.PropTypes.number,

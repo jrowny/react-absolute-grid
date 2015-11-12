@@ -49,6 +49,7 @@ export default class AbsoluteGrid extends React.Component {
       }
     });
 
+    const itemsLength = this.props.items.length;
     const gridItems = this.props.items.map(item => {
       const key = item[this.props.keyProp];
       const index = sortedIndex[key];
@@ -61,11 +62,17 @@ export default class AbsoluteGrid extends React.Component {
           index={index}
           id={key}
           key={key}
-          itemsLength={this.props.items.length}
           dragEnabled={this.props.dragEnabled}
           dragManager={this.dragManager}
         >
-          { React.cloneElement(this.props.displayObject, { ...this.props.displayObject.props, item }) }
+          {
+            React.cloneElement(this.props.displayObject, {
+              ...this.props.displayObject.props,
+              item,
+              index,
+              itemsLength
+            })
+          }
         </BaseStyleObject>
       );
     });
