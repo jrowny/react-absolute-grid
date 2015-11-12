@@ -1,11 +1,10 @@
 'use strict';
 
 import React from 'react';
+import { debounce, sortBy } from 'lodash';
 import BaseStyleObject from './BaseDisplayObject.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
-import debounce from 'lodash.debounce';
-import sortBy from 'lodash.sortby';
 
 export default class AbsoluteGrid extends React.Component {
 
