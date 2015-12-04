@@ -60,9 +60,9 @@ What Makes AbsoluteGrid Unique?
 ----
 The idea behind AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from the DOM, instead they are hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item. Those properties are customizable using the `keyProp` and `filterProp` properties.
 
-GridItem props
+DisplayObject props
 ----
-Each GridItem component is passed the following props.
+Each DisplayObject component is passed the following props.
 
 | Property | Description |
 |---|:---|
