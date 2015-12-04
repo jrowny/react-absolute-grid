@@ -1,14 +1,16 @@
 'use strict';
 
 import React from 'react';
-import BaseDisplayObject from '../lib/BaseDisplayObject.jsx';
 
-export default class SampleDisplay extends BaseDisplayObject{
+export default class SampleDisplay extends React.Component {
 
   render() {
-    //IMPORTANT: Without the style, nothing happens :(
-    var itemStyle = super.getStyle.call(this);
-    itemStyle.backgroundImage = 'url(\'' + this.props.item.url + '\')';
+    const itemStyle = {
+      display: 'block',
+      width: '100%',
+      height: '100%',
+      backgroundImage: `url('${this.props.item.url}')`
+    };
 
     return <div
             style={itemStyle}

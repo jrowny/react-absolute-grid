@@ -1,23 +1,17 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 export default class BaseDisplayObject extends React.Component {
 
-  constructor(){
-    super();
-    this.onDrag = this.onDrag.bind(this);
-  }
-
-  updateDrag(x, y){
+  updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
     if(!this.props.dragManager.dragItem){
       pauseAnimation = true;
       setTimeout(() => {
         this.setState({pauseAnimation: false});
-      });
+      }, 0);
     }
     this.setState({
       dragX: x,
@@ -26,20 +20,18 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag(e){
+  onDrag = (e) => {
     if(this.props.dragManager){
-      var domNode = ReactDOM.findDOMNode(this);
-      this.props.dragManager.startDrag(e, domNode, this.props.item, this.updateDrag.bind(this));
+      this.props.dragManager.startDrag(e, this.domNode, this.props.item, this.updateDrag.bind(this));
     }
   }
 
-  getStyle(){
-
+  getStyle() {
     //If this is the object being dragged, return a different style
-    if(this.props.dragManager.dragItem === this.props.item){
+    if (this.props.dragManager.dragItem === this.props.item) {
       var dragStyle = this.props.dragManager.getStyle(this.state.dragX, this.state.dragY);
       return {...this.props.style, ...dragStyle};
-    }else if(this.state && this.state.pauseAnimation){
+    } else if (this.state && this.state.pauseAnimation) {
       var pauseAnimationStyle = {...this.props.style};
       pauseAnimationStyle.WebkitTransition = 'none';
       pauseAnimationStyle.MozTransition = 'none';
@@ -51,20 +43,31 @@ export default class BaseDisplayObject extends React.Component {
     return this.props.style;
   }
 
-  componentDidMount(){
-    if(this.props.dragEnabled){
-      ReactDOM.findDOMNode(this).addEventListener('mousedown', this.onDrag);
-      ReactDOM.findDOMNode(this).addEventListener('touchstart', this.onDrag);
-      ReactDOM.findDOMNode(this).setAttribute('data-key', this.props.key);
+  componentDidMount() {
+    if (this.props.dragEnabled) {
+      this.domNode.addEventListener('mousedown', this.onDrag);
+      this.domNode.addEventListener('touchstart', this.onDrag);
+      this.domNode.setAttribute('data-key', this.props.id);
     }
   }
 
-  componentWillUnmount(){
-    this.props.dragManager.endDrag();
+  componentWillUnmount() {
+    if (this.props.dragEnabled) {
+      this.props.dragManager.endDrag();
+      this.domNode.removeEventListener('mousedown', this.onDrag);
+      this.domNode.removeEventListener('touchstart', this.onDrag);
+    }
+  }
+
+  render() {
+    return (
+      <div ref={node => this.domNode = node} style={this.getStyle()}>{ this.props.children }</div>
+    );
   }
 }
 
 BaseDisplayObject.propTypes = {
+  id: React.PropTypes.any,
   item: React.PropTypes.object,
   style: React.PropTypes.object,
   index: React.PropTypes.number,
