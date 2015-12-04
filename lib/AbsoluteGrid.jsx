@@ -1,20 +1,15 @@
 'use strict';
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import GridItem from './GridItem.jsx';
+import { debounce, sortBy } from 'lodash';
+import BaseStyleObject from './BaseDisplayObject.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
-import debounce from 'lodash.debounce';
-import sortBy from 'lodash.sortby';
 
 export default class AbsoluteGrid extends React.Component {
 
-  running;
-
-  constructor(props){
-    super(props);
-    this.running = false;
+  constructor(props, context){
+    super(props, context);
     this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
@@ -25,20 +20,20 @@ export default class AbsoluteGrid extends React.Component {
 
   render() {
     if(!this.state.layoutWidth || !this.props.items.length){
-      return <div></div>;
+      return <div ref={node => this.container = node}></div>;
     }
 
-    var options = {
+    const options = {
       itemWidth: this.props.itemWidth,
       itemHeight: this.props.itemHeight,
       verticalMargin: this.props.verticalMargin,
       zoom: this.props.zoom
     };
 
-    var layout = new LayoutManager(options, this.state.layoutWidth);
+    const layout = new LayoutManager(options, this.state.layoutWidth);
 
-    var filteredIndex = 0;
-    var sortedIndex = {};
+    let filteredIndex = 0;
+    let sortedIndex = {};
 
     /*
      If we actually sorted the array, React would re-render the DOM nodes
@@ -46,36 +41,57 @@ export default class AbsoluteGrid extends React.Component {
      This also clears out filtered items from the sort order and
      eliminates gaps and duplicate sorts
      */
-    sortBy(this.props.items, this.props.sortProp).forEach((item) => {
+    sortBy(this.props.items, this.props.sortProp).forEach(item => {
       if(!item[this.props.filterProp]){
-        var key = item[this.props.keyProp];
+        const key = item[this.props.keyProp];
         sortedIndex[key] = filteredIndex;
         filteredIndex++;
       }
     });
 
-    var gridItems = this.props.items.map((item) => {
-      var key = item[this.props.keyProp];
-      var index = sortedIndex[key];
-      var style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
+    const itemsLength = this.props.items.length;
+    const gridItems = this.props.items.map(item => {
+      const key = item[this.props.keyProp];
+      const index = sortedIndex[key];
+      const style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
 
-      var gridItem = React.cloneElement(this.props.displayObject, {
-        ...this.props.displayObject.props, style, item, index, key,
-        itemsLength: this.props.items.length,
-        dragEnabled: this.props.dragEnabled,
-        dragManager: this.dragManager
-      });
-
-      return gridItem;
+      return (
+        <BaseStyleObject
+          style={style}
+          item={item}
+          index={index}
+          id={key}
+          key={key}
+          dragEnabled={this.props.dragEnabled}
+          dragManager={this.dragManager}
+        >
+          {
+            React.cloneElement(this.props.displayObject, {
+              ...this.props.displayObject.props,
+              item,
+              index,
+              itemsLength
+            })
+          }
+        </BaseStyleObject>
+      );
     });
 
-    var gridStyle = {
+    const gridStyle = {
       position: 'relative',
       display: 'block',
       height: layout.getTotalHeight(filteredIndex)
     };
 
-    return <div style={gridStyle} className="absoluteGrid">{gridItems}</div>;
+    return (
+      <div
+        style={gridStyle}
+        className="absoluteGrid"
+        ref={node => this.container = node}
+      >
+        {gridItems}
+      </div>
+    );
   }
 
   componentDidMount() {
@@ -91,20 +107,15 @@ export default class AbsoluteGrid extends React.Component {
   }
 
   onResize = () => {
-    if (!this.running) {
-      this.running = true;
-
-      if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(this.getDOMWidth);
-      } else {
-        setTimeout(this.getDOMWidth, 66);
-      }
-
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(this.getDOMWidth);
+    } else {
+      setTimeout(this.getDOMWidth, 66);
     }
   }
 
   getDOMWidth = () => {
-    var width = ReactDOM.findDOMNode(this).clientWidth;
+    const width = this.container && this.container.clientWidth;
 
     if(this.state.layoutWidth !== width){
       this.setState({layoutWidth: width});
@@ -117,7 +128,7 @@ export default class AbsoluteGrid extends React.Component {
 
 AbsoluteGrid.propTypes = {
   items: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
-  displayObject: React.PropTypes.object,
+  displayObject: React.PropTypes.element.isRequired,
   itemWidth: React.PropTypes.number,
   itemHeight: React.PropTypes.number,
   verticalMargin: React.PropTypes.number,
@@ -133,7 +144,6 @@ AbsoluteGrid.propTypes = {
 
 AbsoluteGrid.defaultProps = {
   items: [],
-  displayObject: <GridItem/>,
   keyProp: 'key',
   filterProp: 'filtered',
   sortProp: 'sort',

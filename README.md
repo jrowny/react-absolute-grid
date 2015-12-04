@@ -24,7 +24,7 @@ Options (Properties)
 | Property | Default | Description |
 |---|:---:|---|
 | **items** | [] | The array of items in the grid |
-| **displayObject** | &lt;GridItem/&gt; | The React component used to display items |
+| **displayObject** | (required) | The React component to render items |
 | **keyProp** | 'key' | The property to be used as a key  |
 | **filterProp** | 'filtered' | The property to be used for filtering, if the filtered value is true, the item won't be displayed. It's important to not remove items from the array because that will cause React to remove the DOM, for performance we would rather hide it then remove it. |
 | **sortProp** | 'sort' | The property to sort on |
@@ -39,26 +39,22 @@ Options (Properties)
 
 Creating a DisplayObject component
 ------
-Display objects will receive item, style, and index as properties. You must apply the style to the root element in your render. Here's the simplest possible example:
-
-    'use strict';
+displayObject component will receive `item`, `index` and `itemsLength` as props. Here's the simplest possible example:
 
     import React from 'react';
-    import BaseDisplayObject from '../lib/BaseDisplayObject.jsx';
-
-    export default class SampleDisplay extends BaseDisplayObject{
+    
+    export default class SampleDisplay extends React.Component {
 
       render() {
-        //IMPORTANT: Without the style, nothing happens :(
-        var itemStyle = super.getStyle.call(this);
-        return <div style={itemStyle}></div>;
+        // Supposing your item shape is something like {name: 'foo'}
+        const { item, index, itemsLength } = this.props;
+        return <div>Item {index} of {itemsLength}: {item.name}</div>;
       }
     }
 
 Once you've created a display object, use it like this:
 
-     var dispalyObject = (<SampleDisplay />);
-     var grid = (<AbsoluteGrid ... displayObject={displayObject}/>);
+     var grid = (<AbsoluteGrid ... displayObject={(<SampleDisplay {...pass props normally} />)}/>);
 
 What Makes AbsoluteGrid Unique?
 ----
@@ -70,7 +66,6 @@ Each GridItem component is passed the following props.
 
 | Property | Description |
 |---|:---|
-| **style** | The inline styles that ReactAbsoluteGrid generates for the grid item. **NOTE**: Remember to apply to your GridItem element |
 | **item** | The data associated with the GridItem |
 | **index** | The index of the item data in the `items` array |
 | **itemsLength** | The total length of the `items` array |

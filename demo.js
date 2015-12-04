@@ -59,7 +59,7 @@ function demo() {
   var onMoveDebounced = _.debounce(onMove, 80);
 
   var unMountTest = function(){
-    if(React.unmountComponentAtNode(document.getElementById('Demo'))){
+    if(ReactDOM.unmountComponentAtNode(document.getElementById('Demo'))){
       ReactDOM.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
     }else{
       render();
