@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import AbsoluteGrid from './index.js';
 import SampleDisplay from './demo/SampleDisplay.jsx';
 import * as data from './demo/sampleData.js';
@@ -59,15 +60,15 @@ function demo() {
 
   var unMountTest = function(){
     if(React.unmountComponentAtNode(document.getElementById('Demo'))){
-      React.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
+      ReactDOM.render(<button onClick={unMountTest}>Remount</button>, document.getElementById('UnmountButton'));
     }else{
       render();
-      React.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
+      ReactDOM.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
     }
   };
 
   render = function(){
-    React.render(<AbsoluteGrid items={sampleItems}
+    ReactDOM.render(<AbsoluteGrid items={sampleItems}
                                displayObject={displayObject}
                                onMove={onMoveDebounced}
                                dragEnabled={true}
@@ -86,8 +87,8 @@ function demo() {
     renderDebounced();
   };
 
-  React.render(<input onChange={onZoom} type='range' min='0.3' max='1.5' step='0.1' defaultValue={zoom}/>, document.getElementById('Zoom'));
-  React.render(<input placeholder='Filter eg: calendar' onChange={onFilter} type='text'/>, document.getElementById('Filter'));
-  React.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
+  ReactDOM.render(<input onChange={onZoom} type='range' min='0.3' max='1.5' step='0.1' defaultValue={zoom}/>, document.getElementById('Zoom'));
+  ReactDOM.render(<input placeholder='Filter eg: calendar' onChange={onFilter} type='text'/>, document.getElementById('Filter'));
+  ReactDOM.render(<button onClick={unMountTest}>Test Unmount</button>, document.getElementById('UnmountButton'));
   render();
 }

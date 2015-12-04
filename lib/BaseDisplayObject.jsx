@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import assign from 'lodash.assign';
+import ReactDOM from 'react-dom';
 
 export default class BaseDisplayObject extends React.Component {
 
@@ -28,7 +28,7 @@ export default class BaseDisplayObject extends React.Component {
 
   onDrag(e){
     if(this.props.dragManager){
-      var domNode = React.findDOMNode(this);
+      var domNode = ReactDOM.findDOMNode(this);
       this.props.dragManager.startDrag(e, domNode, this.props.item, this.updateDrag.bind(this));
     }
   }
@@ -38,9 +38,9 @@ export default class BaseDisplayObject extends React.Component {
     //If this is the object being dragged, return a different style
     if(this.props.dragManager.dragItem === this.props.item){
       var dragStyle = this.props.dragManager.getStyle(this.state.dragX, this.state.dragY);
-      return assign({}, this.props.style, dragStyle);
+      return {...this.props.style, ...dragStyle};
     }else if(this.state && this.state.pauseAnimation){
-      var pauseAnimationStyle = assign({}, this.props.style);
+      var pauseAnimationStyle = {...this.props.style};
       pauseAnimationStyle.WebkitTransition = 'none';
       pauseAnimationStyle.MozTransition = 'none';
       pauseAnimationStyle.msTransition = 'none';
@@ -53,9 +53,9 @@ export default class BaseDisplayObject extends React.Component {
 
   componentDidMount(){
     if(this.props.dragEnabled){
-      React.findDOMNode(this).addEventListener('mousedown', this.onDrag);
-      React.findDOMNode(this).addEventListener('touchstart', this.onDrag);
-      React.findDOMNode(this).setAttribute('data-key', this.props.key);
+      ReactDOM.findDOMNode(this).addEventListener('mousedown', this.onDrag);
+      ReactDOM.findDOMNode(this).addEventListener('touchstart', this.onDrag);
+      ReactDOM.findDOMNode(this).setAttribute('data-key', this.props.key);
     }
   }
 
