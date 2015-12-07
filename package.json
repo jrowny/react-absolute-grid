@@ -1,6 +1,6 @@
 {
   "name": "react-absolute-grid",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An absolutely positioned responsive touch-enabled fully configurable React grid with drag/drop, filtering, and sorting",
   "main": "dist/index.js",
   "scripts": {
@@ -13,9 +13,9 @@
   "author": "Jonathan Rowny",
   "contributors": [
     {
-      "name" : "Andrey Okonetchnikov",
-      "email" : "andrej.okonetschnikow@gmail.com",
-      "url" : "http://okonet.ru"
+      "name": "Andrey Okonetchnikov",
+      "email": "andrej.okonetschnikow@gmail.com",
+      "url": "http://okonet.ru"
     }
   ],
   "license": "MIT",
