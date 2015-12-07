@@ -11,6 +11,13 @@
     "prepublish": "npm run lint && npm run build"
   },
   "author": "Jonathan Rowny",
+  "contributors": [
+    {
+      "name" : "Andrey Okonetchnikov",
+      "email" : "andrej.okonetschnikow@gmail.com",
+      "url" : "http://okonet.ru"
+    }
+  ],
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {
