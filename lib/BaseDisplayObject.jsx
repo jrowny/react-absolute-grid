@@ -3,7 +3,9 @@
 import React from 'react';
 
 export default class BaseDisplayObject extends React.Component {
-
+  
+  state = {};
+  
   updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
