@@ -36,10 +36,5 @@
     "react-dom": "^0.14.0",
     "webpack": "^1.12.4",
     "webpack-dev-server": "^1.12.1"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
   }
 }
