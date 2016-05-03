@@ -36,13 +36,15 @@ Options (Properties)
 | **animation** | 'transform 300ms ease' | The CSS animation to use on elements. Pass a blank string or `false` for no animation. |
 | **zoom** | 1 | Zooms the contents of the grid, 1 = 100% |
 | **onMove** | `fn(from, to)` | This function is called when an item is dragged over another item. It is your responsibility to update the sort of all items when this happens. |
+| **onDragEnd** | `fn()` | This function is called when drag is done. Useful e.g. if you reorder data using onMove, but want to persisting your data only when the drag operation is finished. |
+
 
 Creating a DisplayObject component
 ------
 displayObject component will receive `item`, `index` and `itemsLength` as props. Here's the simplest possible example:
 
     import React from 'react';
-    
+
     export default class SampleDisplay extends React.Component {
 
       render() {
