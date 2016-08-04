@@ -1,6 +1,9 @@
 React Absolute Grid
 ===================
 An absolute layout grid with animations, filtering, zooming, and drag and drop support. Use your own component as the grid item. See the [Demo](http://jrowny.github.io/react-absolute-grid/demo/).
+# modified by zhu
+## bug fixed:
+drag in plank area cause dragX of null /this.update is not a function
 
 Usage:
 ------

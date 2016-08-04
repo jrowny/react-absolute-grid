@@ -3,7 +3,15 @@
 import React from 'react';
 
 export default class BaseDisplayObject extends React.Component {
-
+  constructor(props){
+    super(props);
+    this.cancelDrag = this.cancelDrag.bind(this);
+    this.state ={
+      pauseAnimation: false,
+      dragX:null,
+      dragY:null
+    }
+  }
   updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
     var pauseAnimation = false;
@@ -20,10 +28,37 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag = (e) => {
+  fireOnDrag(e){
+
     if(this.props.dragManager){
+
+      document.removeEventListener('mouseup', this.cancelDrag);
+      document.removeEventListener('touchend', this.cancelDrag);
+      document.removeEventListener('touchcancel', this.cancelDrag);
+      document.removeEventListener('mousemove', this.cancelDrag);
       this.props.dragManager.startDrag(e, this.domNode, this.props.item, this.updateDrag.bind(this));
     }
+  }
+  cancelDrag(){
+    if(this.timeHandler){
+      clearTimeout(this.timeHandler);
+      this.timeHandler = null;
+    }
+  }
+  onDrag = (e) => {
+    document.addEventListener('mouseup', this.cancelDrag);
+    document.addEventListener('touchend', this.cancelDrag);
+    document.addEventListener('touchcancel', this.cancelDrag);
+    document.addEventListener('mousemove', this.cancelDrag);
+    var time= this.props.timeDelay || 500;
+    var self = this;
+    (function(n,timeout){
+      self.timeHandler = setTimeout(function(){
+        self.timeHandler = null;
+        self.fireOnDrag(n);
+      },timeout)
+    })(e,time)
+
   }
 
   getStyle() {
