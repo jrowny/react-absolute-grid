@@ -10,16 +10,18 @@ export default class AbsoluteGrid extends React.Component {
 
   constructor(props, context){
     super(props, context);
+    this.getDOMWidth = this.getDOMWidth.bind(this);
+    this.onResize = this.onResize.bind(this);
     this.onResize = debounce(this.onResize, 150);
     this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
     this.state = {
-      layoutWidth: 0,
+      layoutWidth: 1400,
       dragItemId: 0
     };
   }
 
   render() {
-    if(!this.state.layoutWidth || !this.props.items.length){
+    if(!this.props.items.length){
       return <div ref={node => this.container = node}></div>;
     }
 
@@ -106,7 +108,7 @@ export default class AbsoluteGrid extends React.Component {
     window.removeEventListener('resize', this.onResize);
   }
 
-  onResize = () => {
+  onResize() {
     if (window.requestAnimationFrame) {
       window.requestAnimationFrame(this.getDOMWidth);
     } else {
@@ -114,7 +116,7 @@ export default class AbsoluteGrid extends React.Component {
     }
   }
 
-  getDOMWidth = () => {
+  getDOMWidth() {
     const width = this.container && this.container.clientWidth;
 
     if(this.state.layoutWidth !== width){
