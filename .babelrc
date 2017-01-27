@@ -1,5 +1,4 @@
 {
-  "stage": 0,
-  "loose": "all",
-  "plugins": ["lodash"]
+  "presets": ["es2015", "react"],
+  "plugins": ["lodash", "babel-plugin-transform-object-rest-spread"]
 }

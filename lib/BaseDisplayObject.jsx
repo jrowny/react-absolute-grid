@@ -3,6 +3,11 @@
 import React from 'react';
 
 export default class BaseDisplayObject extends React.Component {
+  constructor(props, context){
+    super(props, context);
+
+    this.onDrag = this.onDrag.bind(this);
+  }
 
   updateDrag(x, y) {
     //Pause Animation lets our item return to a snapped position without being animated
@@ -20,7 +25,7 @@ export default class BaseDisplayObject extends React.Component {
     });
   }
 
-  onDrag = (e) => {
+  onDrag(e) {
     if(this.props.dragManager){
       this.props.dragManager.startDrag(e, this.domNode, this.props.item, this.updateDrag.bind(this));
     }
@@ -43,11 +48,15 @@ export default class BaseDisplayObject extends React.Component {
     return this.props.style;
   }
 
-  componentDidMount() {
-    if (this.props.dragEnabled) {
+  componentWillUpdate(nextProps) {
+    if (nextProps.dragEnabled) {
       this.domNode.addEventListener('mousedown', this.onDrag);
       this.domNode.addEventListener('touchstart', this.onDrag);
       this.domNode.setAttribute('data-key', this.props.id);
+    } else {
+      this.props.dragManager.endDrag();
+      this.domNode.removeEventListener('mousedown', this.onDrag);
+      this.domNode.removeEventListener('touchstart', this.onDrag);
     }
   }
 
