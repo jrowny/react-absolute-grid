@@ -13,6 +13,8 @@ export default function createDisplayObject(DisplayObject) {
       itemsLength: PropTypes.number
     }
 
+    state = {}
+
     updateDrag(x, y) {
       //Pause Animation lets our item return to a snapped position without being animated
       let pauseAnimation = false;
