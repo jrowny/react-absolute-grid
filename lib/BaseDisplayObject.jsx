@@ -74,6 +74,7 @@ export default function createDisplayObject(DisplayObject) {
              style={this.getStyle()}>
           <DisplayObject
             item={this.props.item}
+            index={this.props.index}
             itemsLength={this.props.itemsLength}/>
         </div>
       );

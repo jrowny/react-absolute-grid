@@ -8,13 +8,18 @@ Usage:
 Install with `npm install react-absolute-grid`
 
     import React from 'react';
-    import AbsoluteGrid from './lib/AbsoluteGrid.jsx';
+    import createAbosluteGrid from './lib/AbsoluteGrid.jsx';
+    
+    // This is the component that will display your data
+    import YourDisplayComponent from 'your-display-component';
 
      var sampleItems = [
       {key: 1, name: 'Test', sort: 0, filtered: 0},
       {key: 2, name: 'Test 1', sort: 1, filtered: 0},
     ];
-
+    
+    // Wraps your "list item" component 
+    const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent);
     React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
 
 
@@ -24,7 +29,6 @@ Options (Properties)
 | Property | Default | Description |
 |---|:---:|---|
 | **items** | [] | The array of items in the grid |
-| **displayObject** | (required) | The React component to render items |
 | **keyProp** | 'key' | The property to be used as a key  |
 | **filterProp** | 'filtered' | The property to be used for filtering, if the filtered value is true, the item won't be displayed. It's important to not remove items from the array because that will cause React to remove the DOM, for performance we would rather hide it then remove it. |
 | **sortProp** | 'sort' | The property to sort on |
@@ -37,9 +41,9 @@ Options (Properties)
 | **zoom** | 1 | Zooms the contents of the grid, 1 = 100% |
 | **onMove** | `fn(from, to)` | This function is called when an item is dragged over another item. It is your responsibility to update the sort of all items when this happens. |
 
-Creating a DisplayObject component
+Your Component
 ------
-displayObject component will receive `item`, `index` and `itemsLength` as props. Here's the simplest possible example:
+Your component will receive `item`, `index` and `itemsLength` as props. Here's the simplest possible example:
 
     import React from 'react';
     
@@ -52,9 +56,6 @@ displayObject component will receive `item`, `index` and `itemsLength` as props.
       }
     }
 
-Once you've created a display object, use it like this:
-
-     var grid = (<AbsoluteGrid ... displayObject={(<SampleDisplay {...pass props normally} />)}/>);
 
 What Makes AbsoluteGrid Unique?
 ----
@@ -62,7 +63,7 @@ The idea behind AbsoluteGrid is high performance. This is achieved by using Tran
 
 DisplayObject props
 ----
-Each DisplayObject component is passed the following props.
+Each Component is passed the following props.
 
 | Property | Description |
 |---|:---|
