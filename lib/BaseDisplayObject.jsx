@@ -2,7 +2,7 @@
 
 import React, { PropTypes, PureComponent } from 'react';
 
-export default function createDisplayObject(DisplayObject) {
+export default function createDisplayObject(DisplayObject, displayProps) {
   return class extends PureComponent {
     static propTypes = {
       item: PropTypes.object,
@@ -75,6 +75,7 @@ export default function createDisplayObject(DisplayObject) {
         <div ref={node => this.domNode = node}
              style={this.getStyle()}>
           <DisplayObject
+            {...displayProps}
             item={this.props.item}
             index={this.props.index}
             itemsLength={this.props.itemsLength}/>

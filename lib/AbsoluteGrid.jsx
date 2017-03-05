@@ -6,9 +6,9 @@ import createDisplayObject from './BaseDisplayObject.jsx';
 import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
 
-export default function createAbsoluteGrid(DisplayObject) {
+export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
 
-  const WrappedDisplayObject = createDisplayObject(DisplayObject);
+  const WrappedDisplayObject = createDisplayObject(DisplayObject, displayProps);
 
   return class extends PureComponent {
     static defaultProps = {
