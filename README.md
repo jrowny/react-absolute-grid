@@ -84,7 +84,7 @@ This component should work in all browsers that [support CSS3 3D Transforms](htt
 
 Drag and Drop only works on IE11+ due to lack of pointer events, although there is a workaround coming soon.
 
------
 Migrating from 2.x
+-----
 
 Instead of passing `displayObject` to the AbsoluteGrid component, pass the component directly into the composer function, `createAbsoluteGrid` which returns an AbsoluteGrid component. That's it!
