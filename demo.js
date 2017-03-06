@@ -70,10 +70,10 @@ function demo() {
       }
       return item;
     });
-    Perf.start();
+    //Perf.start();
     render();
-    Perf.stop();
-    Perf.printWasted();
+    //Perf.stop();
+    //Perf.printWasted();
   };
 
   var onMoveDebounced = _.debounce(onMove, 40);
