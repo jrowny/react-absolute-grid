@@ -1,10 +1,10 @@
 'use strict';
 
-import React, { PropTypes, PureComponent, cloneElement } from 'react';
+import React, { PropTypes, PureComponent } from 'react';
 import { debounce, sortBy } from 'lodash';
 import createDisplayObject from './BaseDisplayObject.jsx';
-import LayoutManager from './LayoutManager.js';
 import DragManager from './DragManager.js';
+import LayoutManager from './LayoutManager.js';
 
 export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
 
@@ -46,8 +46,7 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
       this.onResize = debounce(this.onResize, 150);
       this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
       this.state = {
-        layoutWidth: 0,
-        dragItemId: 0
+        layoutWidth: 0
       };
     }
 
@@ -55,15 +54,6 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
       if(!this.state.layoutWidth || !this.props.items.length){
         return <div ref={node => this.container = node}></div>;
       }
-
-      const options = {
-        itemWidth: this.props.itemWidth,
-        itemHeight: this.props.itemHeight,
-        verticalMargin: this.props.verticalMargin,
-        zoom: this.props.zoom
-      };
-
-      const layout = new LayoutManager(options, this.state.layoutWidth);
 
       let filteredIndex = 0;
       let sortedIndex = {};
@@ -86,14 +76,18 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
       const gridItems = this.props.items.map(item => {
         const key = item[this.props.keyProp];
         const index = sortedIndex[key];
-        const style = layout.getStyle(index, this.props.animation, item[this.props.filterProp]);
         return (
           <WrappedDisplayObject
-            style={style}
             item={item}
             index={index}
             key={key}
             itemsLength={itemsLength}
+            animation={this.props.animation}
+            itemWidth={this.props.itemWidth}
+            itemHeight={this.props.itemHeight}
+            layoutWidth={this.state.layoutWidth}
+            verticalMargin={this.props.verticalMargin}
+            zoom={this.props.zoom}
             keyProp={this.props.keyProp}
             dragEnabled={this.props.dragEnabled}
             dragManager={this.dragManager}
@@ -101,6 +95,13 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
         );
       });
 
+      const options = {
+        itemWidth: this.props.itemWidth,
+        itemHeight: this.props.itemHeight,
+        verticalMargin: this.props.verticalMargin,
+        zoom: this.props.zoom
+      };
+      const layout = new LayoutManager(options, this.state.layoutWidth);
       const gridStyle = {
         position: 'relative',
         display: 'block',

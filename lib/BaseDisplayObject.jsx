@@ -2,6 +2,8 @@
 
 import React, { PropTypes, PureComponent } from 'react';
 
+import LayoutManager from './LayoutManager.js';
+
 export default function createDisplayObject(DisplayObject, displayProps) {
   return class extends PureComponent {
     static propTypes = {
@@ -38,20 +40,30 @@ export default function createDisplayObject(DisplayObject, displayProps) {
     }
 
     getStyle() {
+      const options = {
+        itemWidth: this.props.itemWidth,
+        itemHeight: this.props.itemHeight,
+        verticalMargin: this.props.verticalMargin,
+        zoom: this.props.zoom
+      };
+      const layout = new LayoutManager(options, this.props.layoutWidth);
+      const style = layout.getStyle(this.props.index,
+        this.props.animation,
+        this.props.item[this.props.filterProp]);
       //If this is the object being dragged, return a different style
       if (this.props.dragManager.dragItem &&
           this.props.dragManager.dragItem[this.props.keyProp] === this.props.item[this.props.keyProp]) {
         const dragStyle = this.props.dragManager.getStyle(this.state.dragX, this.state.dragY);
-        return {...this.props.style, ...dragStyle};
+        return {...style, ...dragStyle};
       } else if (this.state && this.state.pauseAnimation) {
-        const pauseAnimationStyle = {...this.props.style};
+        const pauseAnimationStyle = {...style};
         pauseAnimationStyle.WebkitTransition = 'none';
         pauseAnimationStyle.MozTransition = 'none';
         pauseAnimationStyle.msTransition = 'none';
         pauseAnimationStyle.transition = 'none';
         return pauseAnimationStyle;
       }
-      return this.props.style;
+      return style;
     }
 
     componentDidMount() {
