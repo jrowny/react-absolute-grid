@@ -18,7 +18,7 @@ Install with `npm install react-absolute-grid`
       {key: 2, name: 'Test 1', sort: 1, filtered: 0},
     ];
     
-    // Wraps your "list item" component 
+    // Pass your display component to create a new grid
     const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent);
     React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
 
@@ -43,7 +43,7 @@ Options (Properties)
 
 Your Component
 ------
-Your component will receive `item`, `index` and `itemsLength` as props. Here's the simplest possible example:
+Your component will receive `item`, `index` and `itemsLength` as props, as well as anything you pass into the createAbsoluteGrid function. Here's the simplest possible example:
 
     import React from 'react';
     
@@ -59,9 +59,9 @@ Your component will receive `item`, `index` and `itemsLength` as props. Here's t
 
 What Makes AbsoluteGrid Unique?
 ----
-The idea behind AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from the DOM, instead they are hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item. Those properties are customizable using the `keyProp` and `filterProp` properties.
+The idea behind AbsoluteGrid is high performance. This is achieved by using Translate3d to position each item in the layout. Items are never removed from the DOM, instead they are hidden. For best performance you should avoid re-arranging or removing items which you pass into AbsoluteGrid, instead you can use the `filtered` and `sort` properties to hide or sort an item. Those properties are customizable using the `keyProp` and `filterProp` properties. In addition, all data passed must be immutable so that we don't waste any renders.
 
-DisplayObject props
+Your Display Component props
 ----
 Each Component is passed the following props.
 
