@@ -30,9 +30,9 @@ CreateAbsoluteGrid
 createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)`
 ```
  
- * `DisplayComponent`: is a react component
- * `displayProps`: are properties you want passed down to the DisplayComponent such as event handlers. 
- * `forceImpure`: option will make this function as an impure component, meaning it always renders.
+ * `DisplayComponent`: is a react component to display in your grid
+ * `displayProps`: *optional : are properties you want passed down to the DisplayComponent such as event handlers. 
+ * `forceImpure`: *optional : option will make this function as an impure component, meaning it always renders. ** not recommended **
 
 Options (Properties)
 ------
