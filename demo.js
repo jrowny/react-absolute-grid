@@ -62,7 +62,7 @@ function demo() {
           sort: item.sort - 1
         };
       //Increment sorts between positions when source is greater
-      }else if(item.sort >= target.sort && item.sort < source.sort){
+      } else if (item.sort >= target.sort && item.sort < source.sort){
         return {
           ...item,
           sort: item.sort + 1
