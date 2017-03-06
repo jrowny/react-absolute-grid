@@ -19,12 +19,14 @@ Install with `npm install react-absolute-grid`
     ];
     
     // Pass your display component to create a new grid
-    const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent);
+    const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent, {someProp: 'my component needs this'});
     React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
 
 
 Options (Properties)
 ------
+
+`createAbsoluteGrid(DisplayComponent, displayProps)` : DisplayComponent is a react component. displayProps are properties you want passed down to the DisplayComponent such as handlers.
 
 | Property | Default | Description |
 |---|:---:|---|
@@ -81,3 +83,8 @@ Browser Compatibility
 This component should work in all browsers that [support CSS3 3D Transforms](http://caniuse.com/#feat=transforms3d). If you need IE9 support you can modify it to use transform rather than transform3d. Pull requests welcome!
 
 Drag and Drop only works on IE11+ due to lack of pointer events, although there is a workaround coming soon.
+
+-----
+Migrating from 2.x
+
+Instead of passing `displayObject` to the AbsoluteGrid component, pass the component directly into the composer function, `createAbsoluteGrid` which returns an AbsoluteGrid component. That's it!
