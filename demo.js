@@ -2,7 +2,8 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AbsoluteGrid from './index.js';
+import Perf from 'react-addons-perf';
+import createAbsoluteGrid from './index.js';
 import SampleDisplay from './demo/SampleDisplay.jsx';
 import * as data from './demo/sampleData.js';
 import * as _ from 'lodash';
@@ -20,16 +21,22 @@ demo();
 
 function demo() {
 
-  var sampleItems = data.screens;
-  var displayObject = (<SampleDisplay/>);
-  var render;
-  var zoom = 0.7;
+  let sampleItems = data.screens;
+  let render;
+  let zoom = 0.7;
 
   //We set a property on each item to let the grid know not to show it
   var onFilter = function(event){
     var search = new RegExp(event.target.value, 'i');
-    sampleItems.forEach(function(item){
-      item.filtered = !item.name.match(search);
+    sampleItems = sampleItems.map(function(item){
+      const isMatched = !item.name.match(search);
+      if(!item.filtered || isMatched !== item.filtered) {
+        return {
+          ...item,
+          filtered: isMatched
+        }
+      }
+      return item;
     });
     render();
   };
@@ -39,24 +46,37 @@ function demo() {
     source = _.find(sampleItems, {key: parseInt(source, 10)});
     target = _.find(sampleItems, {key: parseInt(target, 10)});
 
-    var targetSort = target.sort;
+    const targetSort = target.sort;
 
     //CAREFUL, For maximum performance we must maintain the array's order, but change sort
-    sampleItems.forEach(function(item){
+    sampleItems = sampleItems.map(function(item){
       //Decrement sorts between positions when target is greater
-      if(target.sort > source.sort && (item.sort <= target.sort && item.sort > source.sort)){
-        item.sort --;
-      //Incremenet sorts between positions when source is greator
-      }else if(item.sort >= target.sort && item.sort < source.sort){
-        item.sort ++;
+      if(item.key === source.key) {
+        return {
+          ...item,
+          sort: targetSort
+        }
+      } else if(target.sort > source.sort && (item.sort <= target.sort && item.sort > source.sort)){
+        return {
+          ...item,
+          sort: item.sort - 1
+        };
+      //Increment sorts between positions when source is greater
+      } else if (item.sort >= target.sort && item.sort < source.sort){
+        return {
+          ...item,
+          sort: item.sort + 1
+        };
       }
+      return item;
     });
-
-    source.sort = targetSort;
+    Perf.start();
     render();
+    Perf.stop();
+    Perf.printWasted();
   };
 
-  var onMoveDebounced = _.debounce(onMove, 80);
+  var onMoveDebounced = _.debounce(onMove, 40);
 
   var unMountTest = function(){
     if(ReactDOM.unmountComponentAtNode(document.getElementById('Demo'))){
@@ -67,9 +87,9 @@ function demo() {
     }
   };
 
+  const AbsoluteGrid = createAbsoluteGrid(SampleDisplay);
   render = function(){
     ReactDOM.render(<AbsoluteGrid items={sampleItems}
-                               displayObject={displayObject}
                                onMove={onMoveDebounced}
                                dragEnabled={true}
                                zoom={zoom}
