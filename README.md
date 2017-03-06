@@ -42,6 +42,9 @@ Options (Properties)
 | **animation** | 'transform 300ms ease' | The CSS animation to use on elements. Pass a blank string or `false` for no animation. |
 | **zoom** | 1 | Zooms the contents of the grid, 1 = 100% |
 | **onMove** | `fn(from, to)` | This function is called when an item is dragged over another item. It is your responsibility to update the sort of all items when this happens. |
+| **onDragStart** | `fn(e)` | This function is called when an item starts dragging, this is NOT required. |
+| **onDragMove** | `fn(e)` | This function is called when as an item is being moved, this is NOT required. |
+| **onDragEnd** | `fn(e)` | This function is called when an item has finished its drag, this is NOT required. |
 
 Your Component
 ------
@@ -65,14 +68,14 @@ The idea behind AbsoluteGrid is high performance. This is achieved by using Tran
 
 Your Display Component props
 ----
-Each Component is passed the following props.
+Each Component is passed the following props, as well as anything passed into the second parameter of `createAbsoluteGrid`
 
 | Property | Description |
 |---|:---|
 | **item** | The data associated with the GridItem |
 | **index** | The index of the item data in the `items` array |
 | **itemsLength** | The total length of the `items` array |
-
+| **...displayProps** | props passed into `createAbsoluteGrid` |
 
 ToDo:
 -----
