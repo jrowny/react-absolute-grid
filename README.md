@@ -24,11 +24,18 @@ const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent, {someProp: 'my com
 React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
 ```
 
+CreateAbsoluteGrid
+------
+```javascript
+createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)`
+```
+ 
+ * `DisplayComponent`: is a react component
+ * `displayProps`: are properties you want passed down to the DisplayComponent such as event handlers. 
+ * `forceImpure`: option will make this function as an impure component, meaning it always renders.
+
 Options (Properties)
 ------
-
-`createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)` : DisplayComponent is a react component. `displayProps` are properties you want passed down to the DisplayComponent such as event handlers. `forceImpure` option will make this function as an impure component, meaning it always renders.
-
 | Property | Default | Description |
 |---|:---:|---|
 | **items** | [] | The array of items in the grid |
@@ -78,6 +85,7 @@ Each Component is passed the following props, as well as anything passed into th
 
 ToDo:
 -----
+ * Tests
  * Improve Drag & Drop browser support and reliability
 
 Browser Compatibility
