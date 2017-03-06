@@ -7,21 +7,22 @@ Usage:
 
 Install with `npm install react-absolute-grid`
 
-    import React from 'react';
-    import createAbosluteGrid from './lib/AbsoluteGrid.jsx';
-    
-    // This is the component that will display your data
-    import YourDisplayComponent from 'your-display-component';
+```javascript
+import React from 'react';
+import createAbosluteGrid from './lib/AbsoluteGrid.jsx';
 
-     var sampleItems = [
-      {key: 1, name: 'Test', sort: 0, filtered: 0},
-      {key: 2, name: 'Test 1', sort: 1, filtered: 0},
-    ];
-    
-    // Pass your display component to create a new grid
-    const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent, {someProp: 'my component needs this'});
-    React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
+// This is the component that will display your data
+import YourDisplayComponent from 'your-display-component';
 
+ var sampleItems = [
+  {key: 1, name: 'Test', sort: 0, filtered: 0},
+  {key: 2, name: 'Test 1', sort: 1, filtered: 0},
+];
+
+// Pass your display component to create a new grid
+const AbsoluteGrid = createAbsoluteGrid(YourDisplayComponent, {someProp: 'my component needs this'});
+React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Container'));
+```
 
 Options (Properties)
 ------
@@ -50,17 +51,15 @@ Your Component
 ------
 Your component will receive `item`, `index` and `itemsLength` as props, as well as anything you pass into the createAbsoluteGrid function. Here's the simplest possible example:
 
-    import React from 'react';
-    
-    export default class SampleDisplay extends React.Component {
+```javascript
+import React from 'react';
 
-      render() {
-        // Supposing your item shape is something like {name: 'foo'}
-        const { item, index, itemsLength } = this.props;
-        return <div>Item {index} of {itemsLength}: {item.name}</div>;
-      }
-    }
-
+export default function SampleDisplay(props) {
+    // Supposing your item shape is something like {name: 'foo'}
+    const { item, index, itemsLength } = props;
+    return <div>Item {index} of {itemsLength}: {item.name}</div>;
+}
+```
 
 What Makes AbsoluteGrid Unique?
 ----
