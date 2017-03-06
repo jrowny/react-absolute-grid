@@ -89,6 +89,7 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
             verticalMargin={this.props.verticalMargin}
             zoom={this.props.zoom}
             keyProp={this.props.keyProp}
+            filterProp={this.props.filterProp}
             dragEnabled={this.props.dragEnabled}
             dragManager={this.dragManager}
           />
