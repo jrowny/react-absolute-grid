@@ -1,11 +1,14 @@
 'use strict';
 
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PropTypes, PureComponent, Component } from 'react';
 
 import LayoutManager from './LayoutManager.js';
 
-export default function createDisplayObject(DisplayObject, displayProps) {
-  return class extends PureComponent {
+export default function createDisplayObject(DisplayObject, displayProps, forceImpure) {
+
+  const Comp = forceImpure ? Component : PureComponent;
+
+  return class extends Comp {
     static propTypes = {
       item: PropTypes.object,
       style: PropTypes.object,

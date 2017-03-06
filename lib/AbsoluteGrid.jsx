@@ -1,16 +1,18 @@
 'use strict';
 
-import React, { PropTypes, PureComponent } from 'react';
+import React, { PropTypes, PureComponent, Component } from 'react';
 import { debounce, sortBy } from 'lodash';
+
 import createDisplayObject from './BaseDisplayObject.jsx';
 import DragManager from './DragManager.js';
 import LayoutManager from './LayoutManager.js';
 
-export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
+export default function createAbsoluteGrid(DisplayObject, displayProps = {}, forceImpure = false) {
 
-  const WrappedDisplayObject = createDisplayObject(DisplayObject, displayProps);
+  const Comp = forceImpure ? Component : PureComponent;
+  const WrappedDisplayObject = createDisplayObject(DisplayObject, displayProps, forceImpure);
 
-  return class extends PureComponent {
+  return class extends Comp {
     static defaultProps = {
       items: [],
       keyProp: 'key',
@@ -23,7 +25,10 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
       dragEnabled: false,
       animation: 'transform 300ms ease',
       zoom: 1,
-      onMove: function(){}
+      onMove: ()=>{},
+      onDragStart: ()=>{},
+      onDragMove: ()=>{},
+      onDragEnd: ()=>{}
     }
 
     static propTypes = {
@@ -38,13 +43,21 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}) {
       sortProp: PropTypes.string,
       filterProp: PropTypes.string,
       animation: PropTypes.string,
-      onMove: PropTypes.func
+      onMove: PropTypes.func,
+      onDragStart: PropTypes.func,
+      onDragMove: PropTypes.func,
+      onDragEnd: PropTypes.func
     }
 
     constructor(props, context){
       super(props, context);
       this.onResize = debounce(this.onResize, 150);
-      this.dragManager = new DragManager(this.props.onMove, this.props.keyProp);
+      this.dragManager = new DragManager(
+        this.props.onMove,
+        this.props.onDragStart,
+        this.props.onDragEnd,
+        this.props.onDragMove,
+        this.props.keyProp);
       this.state = {
         layoutWidth: 0
       };

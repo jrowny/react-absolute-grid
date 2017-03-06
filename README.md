@@ -26,7 +26,7 @@ Install with `npm install react-absolute-grid`
 Options (Properties)
 ------
 
-`createAbsoluteGrid(DisplayComponent, displayProps)` : DisplayComponent is a react component. displayProps are properties you want passed down to the DisplayComponent such as handlers.
+`createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)` : DisplayComponent is a react component. `displayProps` are properties you want passed down to the DisplayComponent such as event handlers. `forceImpure` option will make this function as an impure component, meaning it always renders.
 
 | Property | Default | Description |
 |---|:---:|---|
