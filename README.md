@@ -27,7 +27,7 @@ React.render(<AbsoluteGrid items={sampleItems} />, document.getElementById('Cont
 CreateAbsoluteGrid
 ------
 ```javascript
-createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)`
+createAbsoluteGrid(DisplayComponent, displayProps = {}, forceImpure = false)
 ```
  
  * `DisplayComponent`: is a react component to display in your grid
