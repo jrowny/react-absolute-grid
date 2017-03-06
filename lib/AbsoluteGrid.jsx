@@ -165,10 +165,3 @@ export default function createAbsoluteGrid(DisplayObject, displayProps = {}, for
 
   }
 }
-
-/*
-
-AbsoluteGrid.;
-
-AbsoluteGrid.
-*/
