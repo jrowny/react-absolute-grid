@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Perf from 'react-addons-perf';
+// import Perf from 'react-addons-perf';
 import createAbsoluteGrid from './index.js';
 import SampleDisplay from './demo/SampleDisplay.jsx';
 import * as data from './demo/sampleData.js';
