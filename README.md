@@ -9,7 +9,7 @@ Install with `npm install react-absolute-grid`
 
 ```javascript
 import React from 'react';
-import createAbosluteGrid from './lib/AbsoluteGrid.jsx';
+import createAbsoluteGrid from './lib/AbsoluteGrid.jsx';
 
 // This is the component that will display your data
 import YourDisplayComponent from 'your-display-component';
