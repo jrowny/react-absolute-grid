@@ -1,11 +1,12 @@
 'use strict';
 
-import React, { PropTypes, PureComponent, Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { debounce, sortBy } from 'lodash';
 
-import createDisplayObject from './BaseDisplayObject.jsx';
 import DragManager from './DragManager.js';
 import LayoutManager from './LayoutManager.js';
+import PropTypes from 'prop-types';
+import createDisplayObject from './BaseDisplayObject.jsx';
 
 export default function createAbsoluteGrid(DisplayObject, displayProps = {}, forceImpure = false) {
 
