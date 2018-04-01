@@ -1,8 +1,9 @@
 'use strict';
 
-import React, { PropTypes, PureComponent, Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 
 import LayoutManager from './LayoutManager.js';
+import PropTypes from 'prop-types';
 
 export default function createDisplayObject(DisplayObject, displayProps, forceImpure) {
 
