@@ -8,7 +8,7 @@
     "build-demo": "webpack --config 'webpack/demo.config.js' --optimize-minimize --content-base demo",
     "dev": "webpack-dev-server --config 'webpack/dev.config.js' --devtool eval --progress --colors --hot --content-base demo",
     "lint": "eslint lib",
-    "prepublish": "npm run lint && npm run build"
+    "prepare": "npm run lint && npm run build"
   },
   "author": "Jonathan Rowny",
   "contributors": [
