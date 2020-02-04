@@ -3,7 +3,10 @@ React Absolute Grid
 
 Unmaintained:
 -----
-This library is unmaintained and has not been tested to work with React 16+.
+This library is unmaintained and has not been tested to work with React 16+. We're looking for maintainers. If you're interested, file an issue.
+
+Description:
+------
 
 An absolute layout grid with animations, filtering, zooming, and drag and drop support. Use your own component as the grid item. See the [Demo](http://jrowny.github.io/react-absolute-grid/demo/).
 
